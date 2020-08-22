@@ -1,0 +1,27 @@
+.jumbotron  {
+    height: 400px;
+    background-image: linear-gradient(150deg, #3e4551 40%, white 200%);
+    color: white;
+}
+
+h1  {
+    font-family: "Fira Sans", sans-serif;
+    font-weight: 700;
+    font-size: 80px;
+}       
+
+p {
+    font-family: "Arvo", sans-serif;
+}
+
+.fontBold   {
+    font-weight: 500;
+}
+
+.btn-yellow {
+    background-color: #FFED38;
+}
+
+html {
+    scroll-behavior: smooth;
+}
