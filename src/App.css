@@ -12,6 +12,7 @@ h1  {
 
 p {
     font-family: "Arvo", sans-serif;
+    font-size: 20px;
 }
 
 .fontBold   {
@@ -24,4 +25,28 @@ p {
 
 html {
     scroll-behavior: smooth;
+}
+
+.nav-link   {
+    font-weight: 700;
+}
+
+.hr-exam  {
+    max-width: 80%;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  }
+
+.a-button    {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    color: #00A5DB;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.a-button:hover {
+    text-decoration: underline;
 }
