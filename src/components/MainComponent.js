@@ -3,6 +3,7 @@ import Header from "./HeaderComponent";
 import { BrowserRouter } from "react-router-dom";
 import HrLine from "./HrCompnent";
 import { PROCARDS } from "../shared/procards"
+import CardsDirectory from "./CardsDirectoryComponent"
 
 class Main extends Component    {
     constructor(props)  {
@@ -18,6 +19,7 @@ class Main extends Component    {
                 <div>
                     <Header />
                     <HrLine />
+                    <CardsDirectory instCards={this.state.proCards} />
                 </div>
             </BrowserRouter>
         );

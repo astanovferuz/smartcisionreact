@@ -45,8 +45,40 @@ html {
     color: #00A5DB;
     font-weight: 500;
     cursor: pointer;
+    outline: none!important;
 }
 
 .a-button:hover {
     text-decoration: underline;
+}
+
+.card-prop  {
+    max-width: 35%;
+}
+
+.cardBor-radius {
+    border-radius: 1%;
+}
+
+.headline   {
+    font-size: 40px;
+}
+
+.card-text  {
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.cardTitle  {
+    font-size: 1.30rem;
+    font-weight: 600;
+    background-color: #FFED38;
+}
+
+.scaleCard  {
+    transition: transform 0.2s;
+}
+
+.scaleCard:hover    {
+    transform: scale(1.05);
 }

@@ -1,38 +1,55 @@
 import React, { Component } from "react";
-import { NavItem, Nav, Navbar, NavbarBrand, Jumbotron, Button, Form } from "reactstrap";
+import { NavItem, Nav, Navbar, NavbarBrand, Jumbotron, Button, Form, Collapse, NavbarToggler } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
 class Header extends Component{
+    constructor(props)  {
+        super(props);
+
+        this.state = {
+            isNavOpen: false
+        }
+
+        this.toggleNav = this.toggleNav.bind(this);
+    }
+
+    toggleNav() {
+        this.setState({isNavOpen: !this.state.isNavOpen});
+    }
+
     render()    {
         return(
             <React.Fragment>
-                 <Navbar color="light" light expand="md">
+                <Navbar color="light" sticky="top" light expand="lg" className="p-0">
                      <div className="container">
                         <NavbarBrand href="/">SmartCision</NavbarBrand>
-                            <Nav className="mr-auto" navbar>
-                                <NavItem>
-                                    <NavLink to="/home" className="nav-link">Home</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink to="#" className="nav-link">About</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink to="#" className="nav-link">Demo</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink to="#" className="nav-link">Contact</NavLink>
-                                </NavItem>
-                            </Nav>
-                            <Form className="form-inline ml-2 my-lg-0">
-                                <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                                <Button color="success" outline className="my-2 my-sm-0" type="submit">Search</Button>
-                            </Form>
-                            <span>
-                                <button className="ml-4 a-button" href="#">Login</button>
-                                <button className="ml-3 a-button" href="#">Sign Up</button>
-                            </span>
-                     </div>
-                 </Navbar>
+                            <NavbarToggler onClick={this.toggleNav} />
+                                <Collapse isOpen={this.state.isNavOpen} navbar>
+                                    <Nav className="mr-auto" navbar>
+                                        <NavItem>
+                                            <NavLink to="/home" className="nav-link">Home</NavLink>
+                                        </NavItem>
+                                        <NavItem>
+                                            <NavLink to="#" className="nav-link">About</NavLink>
+                                        </NavItem>
+                                        <NavItem>
+                                            <NavLink to="#" className="nav-link">Demo</NavLink>
+                                        </NavItem>
+                                        <NavItem>
+                                            <NavLink to="#" className="nav-link">Contact</NavLink>
+                                        </NavItem>
+                                    </Nav>
+                                    <Form className="form-inline ml-lg-2 my-lg-0">
+                                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                                        <Button color="success" outline className="my-2" type="submit">Search</Button>
+                                    </Form>
+                                    <span>
+                                        <button className="ml-lg-4 a-button" href="#">Login</button>
+                                        <button className="ml-lg-3 a-button" href="#">Sign Up</button>
+                                    </span>
+                                </Collapse>
+                    </div>
+                </Navbar>
                 <Jumbotron fluid>
                 <div className="container">
                     <div className="row">
