@@ -30,13 +30,13 @@ class Header extends Component{
                                             <NavLink to="/home" className="nav-link">Home</NavLink>
                                         </NavItem>
                                         <NavItem>
-                                            <NavLink to="#" className="nav-link">About</NavLink>
+                                            <NavLink to="/aboutus" className="nav-link">About</NavLink>
                                         </NavItem>
                                         <NavItem>
-                                            <NavLink to="#" className="nav-link">Demo</NavLink>
+                                            <NavLink to="/demo" className="nav-link">Demo</NavLink>
                                         </NavItem>
                                         <NavItem>
-                                            <NavLink to="#" className="nav-link">Contact</NavLink>
+                                            <NavLink to="/contactus" className="nav-link">Contact</NavLink>
                                         </NavItem>
                                     </Nav>
                                     <Form className="form-inline ml-lg-2 my-lg-0">
@@ -50,7 +50,7 @@ class Header extends Component{
                                 </Collapse>
                     </div>
                 </Navbar>
-                <Jumbotron fluid>
+                <Jumbotron fluid className="jumbo-mt-zero">
                 <div className="container">
                     <div className="row">
                         <div className="col mt-4">

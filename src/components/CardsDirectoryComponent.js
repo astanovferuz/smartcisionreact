@@ -5,7 +5,7 @@ class CardsDirectory extends Component{
     render()    {
         const mappedCards = this.props.instCards.map(instCard =>    {
             return(
-                <React.Fragment>
+                <React.Fragment key={instCard.id}>
                     <div className="col-md-6 card-prop mb-4">
                         <Card outline color="primary" className="cardBor-radius scaleCard">
                             <CardImg top src={instCard.proCardImgUrl} alt={instCard.proCardTitle} />
