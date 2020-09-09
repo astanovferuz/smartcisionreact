@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavItem, Nav, Navbar, NavbarBrand, Jumbotron, Button, Form, Collapse, NavbarToggler } from "reactstrap";
+import { NavItem, Nav, Navbar, NavbarBrand, Button, Form, Collapse, NavbarToggler } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
 class Header extends Component{
@@ -21,7 +21,7 @@ class Header extends Component{
         return(
             <React.Fragment>
                 <Navbar color="light" sticky="top" light expand="lg" className="p-0">
-                     <div className="container">
+                     <div className="container pl-2">
                         <NavbarBrand href="/">SmartCision</NavbarBrand>
                             <NavbarToggler onClick={this.toggleNav} />
                                 <Collapse isOpen={this.state.isNavOpen} navbar>
@@ -50,21 +50,6 @@ class Header extends Component{
                                 </Collapse>
                     </div>
                 </Navbar>
-                <Jumbotron fluid className="jumbo-mt-zero">
-                <div className="container">
-                    <div className="row">
-                        <div className="col mt-4">
-                            <h1 className="text-center">Smart Decisions</h1>
-                            <p className="text-center">Don't make the same mistake twice. Make smart decisions.</p>
-                        </div>
-                    </div>
-                     <div className="row">
-                        <div className="col d-flex justify-content-center">
-                            <a href="#first-main-headline" className="btn btn-warning fontBold mt-3 btn-lg btn-yellow">Learn More</a>
-                        </div>
-                    </div>
-                 </div>
-                </Jumbotron>
             </React.Fragment>
         );
     }
