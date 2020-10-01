@@ -12,11 +12,11 @@ class DecCom extends Component  {
         }
     }
 
+
     selectedDecision(decision)   {
         this.setState({
             selectedDecision: decision
         });
-        console.log(this.state.selectedDecision);
     }
     
     render()    {
@@ -32,7 +32,7 @@ class DecCom extends Component  {
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey={decision.id} className="decBodyBack text-white">
                         <Card.Body>
-                            <h6>Priority -
+                            <h6 className="colCardPriority">Priority -
                             {decision.decPriority === "low" ? <Badge className="ml-1 mt-1" color="success">low</Badge> : 
                             decision.decPriority === "mid" ? <Badge className="ml-1 mt-1" color="warning">mid</Badge> : 
                             decision.decPriority === "high" ? <Badge className="ml-1 mt-1" color="danger">high</Badge> : null }
@@ -40,8 +40,11 @@ class DecCom extends Component  {
                             { rawProblem.length > truncLength ? displayDecProblem + "..." : rawProblem }
                             <br />
                             <Button onClick={() => this.selectedDecision(decision)} className="mt-2 fontBold" size="sm" color="success">Expand Decision</Button>
-                            <Button className="mt-2 ml-2 fontBold" size="sm" color="warning">Edit Decision</Button>
-                            <Button className="mt-2 ml-2 fontBold" size="sm" color="danger">Delete Decision</Button>
+                            <Button onClick={() => {
+                                    this.props.editDecision(decision);
+                                    this.props.editMode();
+                            }} className="mt-2 ml-2 fontBold" size="sm" color="warning">Edit Decision</Button>
+                            <Button onClick={() => this.props.handleDeleteDec(decision.id)} className="mt-2 ml-2 fontBold" size="sm" color="danger">Delete Decision</Button>
                         </Card.Body>
                         </Accordion.Collapse>
                     </Card> 
@@ -60,7 +63,11 @@ class DecCom extends Component  {
                         </div>
                     </div>
                     <div className="col-md-6 decisionCol mb-5">
-                       {this.state.selectedDecision !== null ? <ExpandedDecision selectedDecision={this.state.selectedDecision}/> : null }
+                       {this.state.selectedDecision !== null ? 
+                       <ExpandedDecision 
+                       handleDeleteDec={this.props.handleDeleteDec} 
+                       selectedDecision={this.state.selectedDecision}/> : 
+                       null }
                     </div>
                 </div>
             );

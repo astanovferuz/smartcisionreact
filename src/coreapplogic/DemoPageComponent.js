@@ -10,11 +10,13 @@ class Demo extends Component    {
         
         this.state = {
             isModalOpen: false,
+            id: null,
             decTitle: "",
             decProblem: "",
             decPriority: "",
             decSolution: "",
-            decisions: DECISIONS
+            decisions: DECISIONS,
+            editMode: false
         }
 
 
@@ -22,6 +24,51 @@ class Demo extends Component    {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleDeleteDec = this.handleDeleteDec.bind(this);
+        this.editDecision = this.editDecision.bind(this);
+        this.switchEditMode = this.switchEditMode.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
+    }
+
+    handleEdit(e)   {
+        e.preventDefault();
+
+        const decs = [...this.state.decisions];
+        let index = decs.findIndex(dec => dec.id === this.state.id);
+        decs[index] = {
+            id: this.state.id,
+            decTitle: this.state.decTitle,
+            decProblem: this.state.decProblem,
+            decPriority: this.state.decPriority,
+            decSolution: this.state.decSolution
+        }
+        this.setState({...this.state, decisions: decs});
+        console.log(this.state.decisions)
+    }
+
+    switchEditMode()    {
+        this.setState({
+            editMode: true
+        });
+    }
+
+    editDecision(decision)  {
+        this.toggleModal();
+        this.setState({
+            id: decision.id,
+            decTitle: decision.decTitle,
+            decProblem: decision.decProblem,
+            decPriority: decision.decPriority,
+            decSolution: decision.decSolution
+        });
+        
+    }
+
+    handleDeleteDec(id) {
+        const filteredDecs = this.state.decisions.filter(decision => {return(decision.id !== id)});
+        this.setState({
+            decisions: filteredDecs
+        });
     }
 
     toggleModal()   {
@@ -44,7 +91,6 @@ class Demo extends Component    {
         this.setState({...this.state,
             [name]: value
         });
-        console.log(this.state)
     }
 
     handleSubmit(e) {
@@ -64,7 +110,6 @@ class Demo extends Component    {
             decSolution: "",
             decisions: this.state.decisions.concat(newDec)
         }));
-        console.log(this.state.decisions);
     }
 
     render()    {
@@ -78,13 +123,17 @@ class Demo extends Component    {
                             <Button onClick={this.toggleModal} size="lg" className="addDecButton btn-yellow addDecButton-btn-scale col-md-12"><i className="fa fa-plus fa-lg text-black" /></Button>
                         </div>
                     </div>
-                    <DecCom decisions={this.state.decisions} />
+                    <DecCom decisions={this.state.decisions}
+                            handleDeleteDec={this.handleDeleteDec}
+                            editDecision={this.editDecision}
+                            editMode={this.switchEditMode}
+                    />
                     
                     <React.Fragment>
                     <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal} size="lg">
-                        <ModalHeader className="btn-yellow border-bottom-0" toggle={this.toggleModal}>Create a new decision</ModalHeader>
+                        <ModalHeader className="btn-yellow border-bottom-0" toggle={this.toggleModal}>{this.state.editMode ? "Edit The Decision" : "Create a new decision"}</ModalHeader>
                         <ModalBody className="modalBodyColor">
-                            <Form onSubmit={this.handleSubmit}>
+                            <Form onSubmit={ this.state.editMode ? this.handleEdit : this.handleSubmit}>
                                 <FormGroup row>
                                     <Label md={4} htmlFor="decTitle" className="pt-0 text-white">Decision Name</Label>
                                     <Col>
@@ -143,7 +192,7 @@ class Demo extends Component    {
                                             value="low">
                                             Low
                                             </Button>
-                                            <Button 
+                                            <Button
                                             type="radio"
                                             onClick={this.handleClick}
                                             className="btn-yellow text-black"
@@ -162,7 +211,9 @@ class Demo extends Component    {
                                         </ButtonGroup>
                                     </Col>
                                 </FormGroup>
-                                <Button onClick={this.toggleModal} type="submit" className="btn-yellow text-black" value="submit">Submit</Button>
+                                <Button onClick={() => {
+                                    this.toggleModal();
+                                    }} type="submit" className="btn-yellow text-black" value="submit">{this.state.editMode ? "Update" : "Submit"}</Button>
                             </Form>
                         </ModalBody>
                     </Modal>
