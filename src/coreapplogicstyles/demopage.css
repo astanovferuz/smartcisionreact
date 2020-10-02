@@ -166,3 +166,8 @@
 .text-aqua {
   color: #00ffff;
 }
+
+.react-rater-star {
+  width: 15px;
+  size: 20px;
+}

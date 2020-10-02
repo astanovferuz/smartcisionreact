@@ -6,6 +6,7 @@ import Home from "./HomeComponent";
 import About from "./AboutComponent";
 import Contact from "./ContactComponent";
 import Demo from "../coreapplogic/DemoPageComponent";
+import Archive from "../components/ArchiveComponent";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 class Main extends Component    {
@@ -25,6 +26,7 @@ class Main extends Component    {
                 <Route exact path="/aboutus" component={About} />
                 <Route exact path="/demo" component={Demo} />
                 <Route exact path="/contactus" component={Contact} />
+                <Route exact path="/archive" component={Archive} />
                 <Redirect to="/home" />
                 </Switch>
                 <Footer />

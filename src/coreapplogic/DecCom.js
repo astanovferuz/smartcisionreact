@@ -64,7 +64,10 @@ class DecCom extends Component  {
                     </div>
                     <div className="col-md-6 decisionCol mb-5">
                        {this.state.selectedDecision !== null ? 
-                       <ExpandedDecision 
+                       <ExpandedDecision
+                       toggleEvaModal={this.props.toggleEvaModal}
+                       editDecision={this.props.editDecision}
+                       editMode={this.props.editMode}
                        handleDeleteDec={this.props.handleDeleteDec} 
                        selectedDecision={this.state.selectedDecision}/> : 
                        null }

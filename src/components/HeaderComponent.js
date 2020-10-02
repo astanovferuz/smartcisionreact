@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavItem, Nav, Navbar, NavbarBrand, Button, Form, Collapse, NavbarToggler } from "reactstrap";
+import { NavItem, Nav, Navbar, NavbarBrand, Button, Form, Collapse, NavbarToggler, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
 class Header extends Component{
@@ -32,9 +32,24 @@ class Header extends Component{
                                         <NavItem>
                                             <NavLink to="/aboutus" className="nav-link">About</NavLink>
                                         </NavItem>
-                                        <NavItem>
-                                            <NavLink to="/demo" className="nav-link">Demo</NavLink>
-                                        </NavItem>
+                                        <UncontrolledDropdown nav inNavbar>
+                                            <DropdownToggle nav caret>
+                                                App Menu
+                                            </DropdownToggle>
+                                            <DropdownMenu right>
+                                                <DropdownItem>
+                                                <NavItem>
+                                                    <NavLink to="/demo" className="nav-link">Demo</NavLink>
+                                                </NavItem>
+                                                </DropdownItem>
+                                                <DropdownItem>
+                                                <NavItem>
+                                                    <NavLink to="/archive" className="nav-link">Archive</NavLink>
+                                                </NavItem>
+                                                </DropdownItem>
+                                            </DropdownMenu>
+                                        </UncontrolledDropdown>
+                                        {/*  */}
                                         <NavItem>
                                             <NavLink to="/contactus" className="nav-link">Contact</NavLink>
                                         </NavItem>

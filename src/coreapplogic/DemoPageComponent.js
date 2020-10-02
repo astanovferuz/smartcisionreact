@@ -2,21 +2,40 @@ import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Input, Label, Col, ButtonGroup } from "reactstrap";
 import DecCom from "./DecCom";
 import { DECISIONS } from "../shared/decisions";
+import ReactStars from "react-rating-stars-component";
 import "../coreapplogicstyles/demopage.css"
+
 
 class Demo extends Component    {
     constructor(props)  {
         super(props);
         
         this.state = {
+            isEvaModalOpen: false,
             isModalOpen: false,
             id: null,
+            decSatisfied: null,
+            decSolved: null,
+            decDiff: null,
+            decDiffExplain: "",
+            rating: 0,
             decTitle: "",
             decProblem: "",
             decPriority: "",
             decSolution: "",
+            yesSatisfied: "",
+            noSatisfied: "",
             decisions: DECISIONS,
-            editMode: false
+            arcDecs: [],
+            editMode: false,
+            touched: {
+                decTitle: false,
+                decProblem: false,
+                decPriority: false,
+                decSolution: false,
+                yesSatisfied: false,
+                noSatisfied: false
+            }
         }
 
 
@@ -28,6 +47,35 @@ class Demo extends Component    {
         this.editDecision = this.editDecision.bind(this);
         this.switchEditMode = this.switchEditMode.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
+        this.resetModal = this.resetModal.bind(this);
+        this.toggleEvaModal = this.toggleEvaModal.bind(this);
+        this.setDecSat = this.setDecSat.bind(this);
+        this.decSatNull = this.decSatNull.bind(this);
+        this.ratingChanged = this.ratingChanged.bind(this);
+    }
+
+    ratingChanged(newRating)    {
+        this.setState({
+            rating: newRating
+        });
+        console.log(this.state.rating)
+    }
+
+    handleBlur = (field) => () =>   {
+        this.setState({
+            touched: {...this.state.touched, [field]: true}
+        });
+        console.log(this.state.touched.yesSatisfied)
+    }
+
+    decSatNull()    {
+        this.setState({
+            ...this.state, 
+            decSatisfied: null,
+            decSolved: null,
+            decDiff: null,
+            decDiffExplain: ""
+        })
     }
 
     handleEdit(e)   {
@@ -42,8 +90,29 @@ class Demo extends Component    {
             decPriority: this.state.decPriority,
             decSolution: this.state.decSolution
         }
-        this.setState({...this.state, decisions: decs});
+        this.setState({...this.state,
+            editMode: false,
+            id: null,
+            decTitle: "",
+            decProblem: "",
+            decPriority: "",
+            decSolution: "", 
+            decisions: decs});
         console.log(this.state.decisions)
+    }
+
+    resetModal()    {
+        this.setState({
+            ...this.state,
+            isEvaModelOpen: false,
+            isModalOpen: false,
+            id: null,
+            decTitle: "",
+            decProblem: "",
+            decPriority: "",
+            decSolution: "",
+            editMode: false
+        })
     }
 
     switchEditMode()    {
@@ -75,6 +144,19 @@ class Demo extends Component    {
         this.setState({isModalOpen: !this.state.isModalOpen});
     }
 
+    toggleEvaModal()    {
+        this.setState({isEvaModalOpen: !this.state.isEvaModalOpen});
+    }
+
+    setDecSat(e)  {
+        const value = e.target.value
+        const name = e.target.name
+        this.setState( state => ({
+            ...this.state, [name]: value
+        }));
+        console.log(this.state.decDiff)
+    }
+
     handleClick(e)  {
         const value = e.target.value
         e.preventDefault();
@@ -91,6 +173,7 @@ class Demo extends Component    {
         this.setState({...this.state,
             [name]: value
         });
+        console.log(this.state.decDiffExplain)
     }
 
     handleSubmit(e) {
@@ -120,13 +203,17 @@ class Demo extends Component    {
                             <h2 className="text-center text-white gray-box py-2">Decisions</h2>
                         </div>
                         <div className="col-md-6 mar-y decisionCol">
-                            <Button onClick={this.toggleModal} size="lg" className="addDecButton btn-yellow addDecButton-btn-scale col-md-12"><i className="fa fa-plus fa-lg text-black" /></Button>
+                            <Button onClick={() => {
+                                this.resetModal();
+                                this.toggleModal();
+                            }} size="lg" className="addDecButton btn-yellow addDecButton-btn-scale col-md-12"><i className="fa fa-plus fa-lg text-black" /></Button>
                         </div>
                     </div>
                     <DecCom decisions={this.state.decisions}
                             handleDeleteDec={this.handleDeleteDec}
                             editDecision={this.editDecision}
                             editMode={this.switchEditMode}
+                            toggleEvaModal={this.toggleEvaModal}
                     />
                     
                     <React.Fragment>
@@ -217,6 +304,66 @@ class Demo extends Component    {
                             </Form>
                         </ModalBody>
                     </Modal>
+                    </React.Fragment>
+
+                    <React.Fragment>
+                        <Modal onClosed={this.decSatNull} isOpen={this.state.isEvaModalOpen} toggle={this.toggleEvaModal} size="lg">
+                            <ModalHeader className="btn-yellow border-bottom-0" toggle={this.toggleEvaModal}>Evaluate Decision</ModalHeader>
+                            <ModalBody className="modalBodyColor">
+                                <Form>
+                                    <FormGroup row>
+                                        <Label className="text-white" md={7} htmlFor="decSatisfied" check>Are you satisfied with your decision?</Label>
+                                        <Col className="align-self-center" md={2}>
+                                            <Input className="mr-0" onClick={this.setDecSat} value="yes" name="decSatisfied" type="radio" /><span className="text-white">Yes</span>
+                                        </Col>
+                                        <Col className="align-self-center" md={2}>
+                                            <Input onClick={this.setDecSat} value="no" name="decSatisfied" type="radio" /><span className="text-white">No</span>
+                                        </Col>
+                                    </FormGroup>
+                                    { this.state.decSatisfied === "yes" || this.state.decSatisfied === "no" ? <FormGroup row>
+                                        <Label className="text-white" md={7} htmlFor="yesSatisfied">Were you able to solve your problem with this decision?</Label>
+                                        <Col className="align-self-center" md={2}>
+                                            <Input className="mr-0" onClick={this.setDecSat} value="yes" name="decSolved" type="radio" /><span className="text-white">Yes</span>
+                                        </Col>
+                                        <Col className="align-self-center" md={2}>
+                                            <Input onClick={this.setDecSat} value="no" name="decSolved" type="radio" /><span className="text-white">No</span>
+                                        </Col>
+                                    </FormGroup> : <div /> }
+                                    { this.state.decSolved === "yes" || this.state.decSolved === "no"  ? <FormGroup row>
+                                        <Label className="text-white" md={7} htmlFor="decDiff">Is there anything you would have done differently?</Label>
+                                        <Col className="align-self-center" md={2}>
+                                            <Input className="mr-0" onClick={this.setDecSat} value="yes" name="decDiff" type="radio" /><span className="text-white">Yes</span>
+                                        </Col>
+                                        <Col className="align-self-center" md={2}>
+                                            <Input onClick={this.setDecSat} value="no" name="decDiff" type="radio" /><span className="text-white">No</span>
+                                        </Col>
+                                    </FormGroup> : <div /> }
+                                    { this.state.decDiff === "yes" || this.state.decDiff === "no" ? <FormGroup row>
+                                        <Label className="text-white" md={7} htmlFor="decDiffExplain">Please explain</Label>
+                                        <Col className="pl-0">
+                                            <Input value={this.state.decDiffExplain} onChange={this.handleChange} className="form-control-custom" type="textarea" name="decDiffExplain" placeholder="Provide a detailed explanation"/>
+                                        </Col>
+                                    </FormGroup> : <div /> }
+                                    { this.state.decDiff === "yes" || this.state.decDiff === "no" ? <FormGroup row>
+                                        <Label className="text-white" md={7} htmlFor="rating">Please rate your decision</Label>
+                                        <Col className="pl-0">
+                                        <ReactStars
+                                            count={5}
+                                            onChange={this.ratingChanged}
+                                            size={30}
+                                            activeColor="#ffd700"
+                                        />
+                                        </Col>
+                                    </FormGroup> : <div /> }
+                                    { this.state.decSatisfied !== null && 
+                                      this.state.decSolved !== null && 
+                                      this.state.decDiff !== null && 
+                                      this.state.rating !== 0 ? 
+                                      <Button className="btn-yellow text-black">Archive Decision</Button> : 
+                                      <Button disabled >Archive Decision</Button>}
+                                </Form>
+                            </ModalBody>
+                        </Modal>
                     </React.Fragment>
                 </div>
         );
