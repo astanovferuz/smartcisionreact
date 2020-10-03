@@ -53,7 +53,7 @@ class DecCom extends Component  {
         })
             return(
                 <div className="row">
-                    <div className="col-md-6 decisionCol mb-5">
+                    <div className="col-md-6 decisionCol mb-5 botMar">
                         <div className="scrollbar ml-0 roundCorners" id="style-2">
                             <div className="force-overflow">
                                 <Accordion defaultActiveKey={null}>
@@ -65,6 +65,7 @@ class DecCom extends Component  {
                     <div className="col-md-6 decisionCol mb-5">
                        {this.state.selectedDecision !== null ? 
                        <ExpandedDecision
+                       getEvaluatedDecision={this.props.getEvaluatedDecision}
                        toggleEvaModal={this.props.toggleEvaModal}
                        editDecision={this.props.editDecision}
                        editMode={this.props.editMode}

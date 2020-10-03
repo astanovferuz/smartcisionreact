@@ -23,7 +23,7 @@
 }
 
 .mar-y  {
-  margin: 50px 0 10px 0;
+  margin: 20px 0 10px 0;
 }
 
 .gray-box {
@@ -167,7 +167,6 @@
   color: #00ffff;
 }
 
-.react-rater-star {
-  width: 15px;
-  size: 20px;
+.botMar {
+  margin-bottom: 200px!important;
 }

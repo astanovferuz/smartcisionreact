@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Input, Label, C
 import DecCom from "./DecCom";
 import { DECISIONS } from "../shared/decisions";
 import ReactStars from "react-rating-stars-component";
+import Archive from "../components/ArchiveComponent";
 import "../coreapplogicstyles/demopage.css"
 
 
@@ -11,6 +12,7 @@ class Demo extends Component    {
         super(props);
         
         this.state = {
+            isArchiveOn: false,
             isEvaModalOpen: false,
             isModalOpen: false,
             id: null,
@@ -26,7 +28,18 @@ class Demo extends Component    {
             yesSatisfied: "",
             noSatisfied: "",
             decisions: DECISIONS,
-            arcDecs: [],
+            arcDecs: [{
+                id: Date.now(),
+                decTitle: "My evaluated decision",
+                decProblem: "Some problem I described",
+                decPriority: "high",
+                decSolution: "Some random solution",
+                decSatisfied: "yes",
+                decSolved: "yes",
+                decDiff: "yes",
+                decDiffExplain: "nothing to explain",
+                rating: 5
+            }],
             editMode: false,
             touched: {
                 decTitle: false,
@@ -52,6 +65,95 @@ class Demo extends Component    {
         this.setDecSat = this.setDecSat.bind(this);
         this.decSatNull = this.decSatNull.bind(this);
         this.ratingChanged = this.ratingChanged.bind(this);
+        this.scrollToArc = React.createRef();
+        this.scrolltoDec = React.createRef();
+        this.handleArcClick = this.handleArcClick.bind(this);
+        this.setArcOnTrue = this.setArcOnTrue.bind(this);
+        this.handleDecClick = this.handleDecClick.bind(this);
+        this.handleEvaluateSubmit = this.handleEvaluateSubmit.bind(this);
+        this.getEvaluatedDecision = this.getEvaluatedDecision.bind(this);
+    }
+
+    getEvaluatedDecision(decision)  {
+        this.setState({
+            id: decision.id,
+            decTitle: decision.decTitle,
+            decProblem: decision.decProblem,
+            decPriority: decision.decPriority,
+            decSolution: decision.decSolution
+        });
+        console.log(this.state);
+    }
+
+    handleEvaluateSubmit(e) {
+        e.preventDefault();
+        const arcDec = {
+            id: Date.now(),
+            decTitle: this.state.decTitle,
+            decProblem: this.state.decProblem,
+            decPriority: this.state.decPriority,
+            decSolution: this.state.decSolution,
+            decSatisfied: this.state.decSatisfied,
+            decSolved: this.state.decSolved,
+            decDiff: this.state.decDiff,
+            decDiffExplain: this.state.decDiffExplain,
+            rating: this.state.rating
+
+        }
+
+        this.setState(state => ({
+            isArchiveOn: false,
+            isEvaModalOpen: false,
+            isModalOpen: false,
+            id: null,
+            decSatisfied: null,
+            decSolved: null,
+            decDiff: null,
+            decDiffExplain: "",
+            rating: 0,
+            decTitle: "",
+            decProblem: "",
+            decPriority: "",
+            decSolution: "",
+            yesSatisfied: "",
+            noSatisfied: "",
+            decisions: DECISIONS,
+            editMode: false,
+            touched: {
+                decTitle: false,
+                decProblem: false,
+                decPriority: false,
+                decSolution: false,
+                yesSatisfied: false,
+                noSatisfied: false
+            },
+            arcDecs: this.state.arcDecs.concat(arcDec)
+        }));
+
+        console.log(this.state.arcDecs)
+    }
+
+    setArcOnTrue()  {
+        this.setState({
+            isArchiveOn: true
+        });
+    }
+
+    handleDecClick(e)   {
+        if(this.scrolltoDec.current)    {
+            this.scrolltoDec.current.scrollIntoView({
+                behavior: "smooth"
+            })
+        }
+    }
+
+    handleArcClick(e)   {
+        if(this.scrollToArc.current)    {
+            this.scrollToArc.current.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest"
+            });
+        }
     }
 
     ratingChanged(newRating)    {
@@ -197,8 +299,13 @@ class Demo extends Component    {
 
     render()    {
         return(
-                <div className="container-fluid stripe-z">
+                <div ref={this.scrolltoDec} className="container-fluid stripe-z">
                     <div className="row">
+                        <div className="col mt-3"><Button className="addDecButton btn btn-info col-md-12 fontBold text-black">Decisions</Button></div>
+                        <div className="col mt-3"><Button onMouseOver={this.setArcOnTrue} onClick={this.handleArcClick} className="addDecButton btn btn-info col-md-12 fontBold text-black">Archived Decisions</Button></div>
+                        <div className="col mt-3"><Button className="addDecButton btn btn-info col-md-12 fontBold text-black">Filtered Decisions</Button></div>
+                    </div>
+                    <div className="row pt-0">
                         <div className="col-md-6 mar-y decisionCol">
                             <h2 className="text-center text-white gray-box py-2">Decisions</h2>
                         </div>
@@ -214,8 +321,8 @@ class Demo extends Component    {
                             editDecision={this.editDecision}
                             editMode={this.switchEditMode}
                             toggleEvaModal={this.toggleEvaModal}
+                            getEvaluatedDecision={this.getEvaluatedDecision}
                     />
-                    
                     <React.Fragment>
                     <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal} size="lg">
                         <ModalHeader className="btn-yellow border-bottom-0" toggle={this.toggleModal}>{this.state.editMode ? "Edit The Decision" : "Create a new decision"}</ModalHeader>
@@ -310,7 +417,7 @@ class Demo extends Component    {
                         <Modal onClosed={this.decSatNull} isOpen={this.state.isEvaModalOpen} toggle={this.toggleEvaModal} size="lg">
                             <ModalHeader className="btn-yellow border-bottom-0" toggle={this.toggleEvaModal}>Evaluate Decision</ModalHeader>
                             <ModalBody className="modalBodyColor">
-                                <Form>
+                                <Form onSubmit={this.handleEvaluateSubmit}>
                                     <FormGroup row>
                                         <Label className="text-white" md={7} htmlFor="decSatisfied" check>Are you satisfied with your decision?</Label>
                                         <Col className="align-self-center" md={2}>
@@ -365,6 +472,22 @@ class Demo extends Component    {
                             </ModalBody>
                         </Modal>
                     </React.Fragment>
+                    <div>
+                        { this.state.isArchiveOn ? 
+                        <div>
+                        <div className="row">
+                        <div className="col mt-3"><Button onClick={this.handleDecClick} className="addDecButton btn btn-info col-md-12 fontBold text-black">Decisions</Button></div>
+                        <div className="col mt-3"><Button onMouseOver={this.setArcOnTrue} onClick={this.handleArcClick} className="addDecButton btn btn-info col-md-12 fontBold text-black">Archived Decisions</Button></div>
+                        <div className="col mt-3"><Button className="addDecButton btn btn-info col-md-12 fontBold text-black">Filtered Decisions</Button></div>
+                        </div>
+                        <div ref={this.scrollToArc} className="row">
+                        <div className="col-12">
+                            <Archive arcDecs={this.state.arcDecs} />
+                        </div>
+                        </div>
+                        </div> : 
+                        <div />}
+                    </div>
                 </div>
         );
     }
