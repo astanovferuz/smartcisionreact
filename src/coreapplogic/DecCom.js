@@ -28,6 +28,7 @@ class DecCom extends Component  {
                 <React.Fragment key={decision.id}>
                     <Card className="border-0 roundCorners">
                         <Accordion.Toggle as={Card.Header} eventKey={decision.id} className="btn-yellow fontBold someBorder decisionName">
+                        <span><i className="fa fa-check-square-o" /></span>&nbsp;
                         {decision.decTitle}
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey={decision.id} className="decBodyBack text-white">

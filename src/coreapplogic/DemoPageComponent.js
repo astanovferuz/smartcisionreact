@@ -4,6 +4,7 @@ import DecCom from "./DecCom";
 import { DECISIONS } from "../shared/decisions";
 import ReactStars from "react-rating-stars-component";
 import Archive from "../components/ArchiveComponent";
+import EvaDec from "./EvaMyDecMakingComponent";
 import "../coreapplogicstyles/demopage.css"
 
 
@@ -12,6 +13,7 @@ class Demo extends Component    {
         super(props);
         
         this.state = {
+            evaDecFilter: false,
             isArchiveOn: false,
             isEvaModalOpen: false,
             isModalOpen: false,
@@ -72,6 +74,14 @@ class Demo extends Component    {
         this.handleDecClick = this.handleDecClick.bind(this);
         this.handleEvaluateSubmit = this.handleEvaluateSubmit.bind(this);
         this.getEvaluatedDecision = this.getEvaluatedDecision.bind(this);
+        this.setEvaDecTrue = this.setEvaDecTrue.bind(this);
+    }
+
+    setEvaDecTrue() {
+        this.setState({
+            evaDecFilter: true,
+            setArcOnTrue: false
+        });
     }
 
     getEvaluatedDecision(decision)  {
@@ -87,6 +97,8 @@ class Demo extends Component    {
 
     handleEvaluateSubmit(e) {
         e.preventDefault();
+        const decToBeDel = this.state.decisions.filter(decision => decision.id === this.state.id)[0];
+        const newDecs = this.state.decisions.filter(decision => decision.id !== decToBeDel.id);
         const arcDec = {
             id: Date.now(),
             decTitle: this.state.decTitle,
@@ -117,7 +129,7 @@ class Demo extends Component    {
             decSolution: "",
             yesSatisfied: "",
             noSatisfied: "",
-            decisions: DECISIONS,
+            decisions: newDecs,
             editMode: false,
             touched: {
                 decTitle: false,
@@ -135,7 +147,8 @@ class Demo extends Component    {
 
     setArcOnTrue()  {
         this.setState({
-            isArchiveOn: true
+            isArchiveOn: true,
+            evaDecFilter: false
         });
     }
 
@@ -154,6 +167,10 @@ class Demo extends Component    {
                 block: "nearest"
             });
         }
+        this.setState({
+            isArchiveOn: true,
+            evaDecFilter: false
+        })
     }
 
     ratingChanged(newRating)    {
@@ -301,9 +318,9 @@ class Demo extends Component    {
         return(
                 <div ref={this.scrolltoDec} className="container-fluid stripe-z">
                     <div className="row">
-                        <div className="col mt-3"><Button className="addDecButton btn btn-info col-md-12 fontBold text-black">Decisions</Button></div>
-                        <div className="col mt-3"><Button onMouseOver={this.setArcOnTrue} onClick={this.handleArcClick} className="addDecButton btn btn-info col-md-12 fontBold text-black">Archived Decisions</Button></div>
-                        <div className="col mt-3"><Button className="addDecButton btn btn-info col-md-12 fontBold text-black">Filtered Decisions</Button></div>
+                        <div className="col mt-3"><Button className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Decisions</Button></div>
+                        <div className="col mt-3"><Button onClick={this.handleArcClick} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Archived Decisions</Button></div>
+                        <div className="col mt-3"><Button onClick={this.setEvaDecTrue} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Evaluate My Decision Making</Button></div>
                     </div>
                     <div className="row pt-0">
                         <div className="col-md-6 mar-y decisionCol">
@@ -476,14 +493,20 @@ class Demo extends Component    {
                         { this.state.isArchiveOn ? 
                         <div>
                         <div className="row">
-                        <div className="col mt-3"><Button onClick={this.handleDecClick} className="addDecButton btn btn-info col-md-12 fontBold text-black">Decisions</Button></div>
-                        <div className="col mt-3"><Button onMouseOver={this.setArcOnTrue} onClick={this.handleArcClick} className="addDecButton btn btn-info col-md-12 fontBold text-black">Archived Decisions</Button></div>
-                        <div className="col mt-3"><Button className="addDecButton btn btn-info col-md-12 fontBold text-black">Filtered Decisions</Button></div>
+                        <div className="col mt-3"><Button onClick={this.handleDecClick} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Decisions</Button></div>
+                        <div className="col mt-3"><Button onClick={this.handleArcClick} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Archived Decisions</Button></div>
+                        <div className="col mt-3"><Button onClick={this.setEvaDecTrue} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Evaluate My Decision Making</Button></div>
                         </div>
                         <div ref={this.scrollToArc} className="row">
-                        <div className="col-12">
-                            <Archive arcDecs={this.state.arcDecs} />
-                        </div>
+                        { this.state.evaDecFilter ? 
+                        
+                            <EvaDec decisions={this.state.decisions} arcDecs={this.state.arcDecs} /> : 
+                            <div className="col-12">
+                                <Archive 
+                                    arcDecs={this.state.arcDecs}
+                                />
+                            </div> }
+                        
                         </div>
                         </div> : 
                         <div />}
