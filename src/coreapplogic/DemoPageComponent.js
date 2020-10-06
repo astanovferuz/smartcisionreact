@@ -403,7 +403,7 @@ class Demo extends Component    {
                     <div className="row">
                         <div className="col mt-3"><Button className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Current Decisions</Button></div>
                         <div className="col mt-3"><Button onClick={this.handleArcClick} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Archived Decisions</Button></div>
-                        <div className="col mt-3"><Button onClick={this.setEvaDecTrue} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Evaluate My Decision Making</Button></div>
+                        <div className="col mt-3"><Button onClick={this.setEvaDecTrue} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Evaluate DM Skills</Button></div>
                     </div>
                     <div className="row pt-0">
                         <div className="col-md-6 mar-y decisionCol">
@@ -598,7 +598,7 @@ class Demo extends Component    {
                         <div className="row">
                         <div className="col mt-3"><Button onClick={this.handleDecClick} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Current Decisions</Button></div>
                         <div className="col mt-3"><Button onClick={this.handleArcClick} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Archived Decisions</Button></div>
-                        <div className="col mt-3"><Button onClick={this.setEvaDecTrue} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Evaluate My Decision Making</Button></div>
+                        <div className="col mt-3"><Button onClick={this.setEvaDecTrue} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Evaluate DM Skills</Button></div>
                         </div>
                         <div ref={this.scrollToArc} className="row">
                         { this.state.evaDecFilter ? 

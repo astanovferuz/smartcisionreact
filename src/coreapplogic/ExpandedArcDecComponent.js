@@ -22,7 +22,8 @@ function ExpArc({selectedDecision})  {
             {selectedDecision.decSolved === "yes" ? <Badge className="ml-1 mt-1" color="success">{selectedDecision.decSolved}</Badge> : <Badge className="ml-1 mt-1" color="danger">{selectedDecision.decSolved}</Badge> }
             <p className="text-aqua fontSmall mb-0">Is there anything you would have done differently?</p>
             {selectedDecision.decDiff === "yes" ? <Badge className="ml-1 mt-1" color="success">{selectedDecision.decDiff}</Badge> : <Badge className="ml-1 mt-1" color="danger">{selectedDecision.decDiff}</Badge> }
-            <br />
+            <p className="text-aqua fontSmall mb-0">Please Explain</p>
+            <p className="text-white fontSmall mb-0">{selectedDecision.decDiffExplain}</p>
             <p className="text-white fontSmall mt-3 mb-0">Your decision's rating</p>
             <ReactStars
                 className="my-0"
