@@ -1,36 +1,29 @@
-import React, { Component } from "react";
+import React from "react";
 import Header from "./HeaderComponent";
-import { PROCARDS } from "../shared/procards"
 import Footer from "./FooterComponent";
 import Home from "./HomeComponent";
 import About from "./AboutComponent";
 import Contact from "./ContactComponent";
 import Demo from "../coreapplogic/DemoPageComponent";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
-class Main extends Component    {
-    constructor(props)  {
-        super(props);
-
-        this.state = {
-            proCards: PROCARDS
-        }
-    }
-    render() {
+function Main(){
         return(
             <div>
                 <Header />
-                <Switch>
-                <Route path="/home" render={() => <Home proCards={this.state.proCards} />} />
-                <Route exact path="/aboutus" component={About} />
-                <Route exact path="/demo" component={Demo} />
-                <Route exact path="/contactus" component={Contact} />
-                <Redirect to="/home" />
-                </Switch>
+                <AnimatePresence exitBeforeEnter>
+                    <Switch>
+                    <Route path="/home" component={Home} />
+                    <Route exact path="/aboutus" component={About} />
+                    <Route exact path="/demo" component={Demo} />
+                    <Route exact path="/contactus" component={Contact} />
+                    <Redirect to="/home" />
+                    </Switch>
+                </AnimatePresence>
                 <Footer />
             </div>
     );
-    }
 }
 
 export default Main;

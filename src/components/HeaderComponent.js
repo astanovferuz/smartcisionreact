@@ -20,7 +20,7 @@ class Header extends Component{
     render()    {
         return(
             <React.Fragment>
-                <Navbar color="light" sticky="top" light expand="lg" className="p-0">
+                <Navbar color="light" sticky="top" light expand="lg" className="p-0 navBack">
                      <div className="container pl-2">
                         <NavbarBrand href="/">SmartCision</NavbarBrand>
                             <NavbarToggler onClick={this.toggleNav} />

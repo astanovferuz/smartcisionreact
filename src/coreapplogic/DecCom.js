@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Accordion, Card } from "react-bootstrap";
 import { Button, Badge } from "reactstrap";
 import ExpandedDecision from "./ExpandedComponent";
+import { Fade, Stagger } from "react-animation-components";
+
 
 class DecCom extends Component  {
     constructor(props)  {
@@ -25,7 +27,8 @@ class DecCom extends Component  {
             let truncLength = 100;
             let displayDecProblem = rawProblem.substring(0, truncLength);
             return(
-                <React.Fragment key={decision.id}>
+                <Fade in key={decision.id}>
+                <div>
                     <Card className="border-0 roundCorners">
                         <Accordion.Toggle as={Card.Header} eventKey={decision.id} className="btn-yellow fontBold someBorder decisionName">
                         <span><i className="fa fa-check-square-o" /></span>&nbsp;
@@ -49,7 +52,8 @@ class DecCom extends Component  {
                         </Card.Body>
                         </Accordion.Collapse>
                     </Card> 
-                </React.Fragment>
+                </div>
+                </Fade>
             )
         })
             return(
@@ -58,7 +62,9 @@ class DecCom extends Component  {
                         <div className="scrollbar ml-0 roundCorners" id="style-2">
                             <div className="force-overflow">
                                 <Accordion defaultActiveKey={null}>
-                                    {mappedDecisions}
+                                    <Stagger in>
+                                        {mappedDecisions}
+                                    </Stagger>
                                 </Accordion>
                             </div>
                         </div>

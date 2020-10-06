@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Input, Label, Col, ButtonGroup } from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Input, Label, Col, ButtonGroup, Progress, FormFeedback } from "reactstrap";
 import DecCom from "./DecCom";
 import { DECISIONS } from "../shared/decisions";
+import { ARCDECS } from "../shared/arcdecs"
 import ReactStars from "react-rating-stars-component";
 import Archive from "../components/ArchiveComponent";
 import EvaDec from "./EvaMyDecMakingComponent";
 import "../coreapplogicstyles/demopage.css"
+import { motion } from "framer-motion";
 
 
 class Demo extends Component    {
@@ -21,6 +23,7 @@ class Demo extends Component    {
             decSatisfied: null,
             decSolved: null,
             decDiff: null,
+            progressBarValue: 0,
             decDiffExplain: "",
             rating: 0,
             decTitle: "",
@@ -30,26 +33,13 @@ class Demo extends Component    {
             yesSatisfied: "",
             noSatisfied: "",
             decisions: DECISIONS,
-            arcDecs: [{
-                id: Date.now(),
-                decTitle: "My evaluated decision",
-                decProblem: "Some problem I described",
-                decPriority: "high",
-                decSolution: "Some random solution",
-                decSatisfied: "yes",
-                decSolved: "yes",
-                decDiff: "yes",
-                decDiffExplain: "nothing to explain",
-                rating: 5
-            }],
+            arcDecs: ARCDECS,
             editMode: false,
             touched: {
                 decTitle: false,
                 decProblem: false,
                 decPriority: false,
                 decSolution: false,
-                yesSatisfied: false,
-                noSatisfied: false
             }
         }
 
@@ -75,6 +65,78 @@ class Demo extends Component    {
         this.handleEvaluateSubmit = this.handleEvaluateSubmit.bind(this);
         this.getEvaluatedDecision = this.getEvaluatedDecision.bind(this);
         this.setEvaDecTrue = this.setEvaDecTrue.bind(this);
+        this.setProgress = this.setProgress.bind(this);
+    }
+
+    handleBlur = (field) => () =>   {
+        this.setState({
+            touched: {...this.state.touched, [field]: true}
+        });
+    }
+    
+    validate(decTitle, decProblem, decSolution, decPriority)  {
+        const errors = {
+            decTitle: "",
+            decProblem: "",
+            decSolution: "",
+            decPriority: ""
+        }
+
+        if (this.state.touched.decTitle)   {
+            if (decTitle.length < 10)   {
+                errors.decTitle = "Decision title must be at least 10 characters."
+            } 
+        }
+
+        if (this.state.touched.decProblem)    {
+            if (decProblem.length < 10)   {
+                errors.decProblem = "Decision problem must be at least 10 characters."
+            }  
+        }
+
+        if(this.state.touched.decSolution)  {
+            if(decSolution.length < 10)  {
+                errors.decSolution = "Decision solution must be at least 10 characters."
+            }
+        }
+
+        if(this.state.touched.decProblem)   {
+            if(decPriority)    {
+                errors.decPriority = "Please set your decision priority"
+            }
+        }
+
+        return errors;
+    }
+
+    setProgress()   {
+        this.setState({
+            progressBarValue: 20
+        });
+
+        if(this.state.decSatisfied !== null && this.state.decSolved === null)   {
+            this.setState({
+                progressBarValue: 40
+            })
+        }
+
+        if(this.state.decSatisfied !== null && this.state.decSolved !== null && this.state.decDiff === null)    {
+            this.setState({
+                progressBarValue: 60
+            })
+        }
+
+        if(this.state.decSatisfied !== null && this.state.decSolved !== null && this.state.decDiff !== null && (this.state.decDiffExplain === "" || this.state.decDiffExplain !== ""))    {
+            this.setState({
+                progressBarValue: 80
+            })
+        }
+
+        if(this.state.decSatisfied !== null && this.state.decSolved !== null && this.state.decDiff !== null && this.state.decDiffExplain !== "" && this.state.rating !== 0 )    {
+            this.setState({
+                progressBarValue: 100
+            })
+        }
     }
 
     setEvaDecTrue() {
@@ -121,6 +183,7 @@ class Demo extends Component    {
             decSatisfied: null,
             decSolved: null,
             decDiff: null,
+            progressBarValue: 0,
             decDiffExplain: "",
             rating: 0,
             decTitle: "",
@@ -230,7 +293,13 @@ class Demo extends Component    {
             decProblem: "",
             decPriority: "",
             decSolution: "",
-            editMode: false
+            editMode: false,
+            touched: {
+                decTitle: "",
+                decProblem: "",
+                decPriority: "",
+                decSolution: ""
+            }
         })
     }
 
@@ -273,7 +342,8 @@ class Demo extends Component    {
         this.setState( state => ({
             ...this.state, [name]: value
         }));
-        console.log(this.state.decDiff)
+        console.log("decSatisfied" + this.state.decSatisfied)
+        console.log("decSolved" + this.state.decSolved)
     }
 
     handleClick(e)  {
@@ -315,16 +385,29 @@ class Demo extends Component    {
     }
 
     render()    {
+
+        const errors = this.validate(this.state.decTitle, this.state.decProblem, this.state.decSolution, this.state.decPriority);
+        const pageTransition = {
+            in: {
+                opacity: 1,
+                x: 0
+            },
+            out: {
+                opacity: 0,
+                x: "-5%"
+            }
+        }
+
         return(
-                <div ref={this.scrolltoDec} className="container-fluid stripe-z">
+                <motion.div exit="out" animate="in" initial="out" variants={pageTransition} ref={this.scrolltoDec} className="container-fluid stripe-z">
                     <div className="row">
-                        <div className="col mt-3"><Button className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Decisions</Button></div>
+                        <div className="col mt-3"><Button className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Current Decisions</Button></div>
                         <div className="col mt-3"><Button onClick={this.handleArcClick} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Archived Decisions</Button></div>
                         <div className="col mt-3"><Button onClick={this.setEvaDecTrue} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Evaluate My Decision Making</Button></div>
                     </div>
                     <div className="row pt-0">
                         <div className="col-md-6 mar-y decisionCol">
-                            <h2 className="text-center text-white gray-box py-2">Decisions</h2>
+                            <h2 className="text-center text-white gray-box py-2">Current Decisions</h2>
                         </div>
                         <div className="col-md-6 mar-y decisionCol">
                             <Button onClick={() => {
@@ -358,7 +441,10 @@ class Demo extends Component    {
                                         onChange={this.handleChange}
                                         value={this.state.decTitle}
                                         autoComplete="off"
+                                        onBlur={this.handleBlur("decTitle")}
+                                        invalid={errors.decTitle}
                                     />
+                                    <FormFeedback>{errors.decTitle}</FormFeedback>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
@@ -373,7 +459,10 @@ class Demo extends Component    {
                                         onChange={this.handleChange}
                                         value={this.state.decProblem}
                                         autoComplete="off"
+                                        onBlur={this.handleBlur("decProblem")}
+                                        invalid={errors.decProblem}
                                     />
+                                    <FormFeedback>{errors.decProblem}</FormFeedback>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
@@ -388,7 +477,10 @@ class Demo extends Component    {
                                         onChange={this.handleChange}
                                         value={this.state.decSolution}
                                         autoComplete="off"
+                                        onBlur={this.handleBlur("decSolution")}
+                                        invalid={errors.decSolution}
                                     />
+                                    <FormFeedback>{errors.decSolution}</FormFeedback>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
@@ -400,7 +492,9 @@ class Demo extends Component    {
                                             onClick={this.handleClick}
                                             className="btn-success"
                                             name="decPriority"
-                                            value="low">
+                                            value="low"
+                                            onBlur={this.handleBlur("decPriority")}
+                                            invalid={errors.decPriority}>
                                             Low
                                             </Button>
                                             <Button
@@ -408,7 +502,9 @@ class Demo extends Component    {
                                             onClick={this.handleClick}
                                             className="btn-yellow text-black"
                                             name="decPriority"
-                                            value="mid">
+                                            value="mid"
+                                            onBlur={this.handleBlur("decPriority")}
+                                            invalid={errors.decPriority}>
                                             Mid
                                             </Button>
                                             <Button 
@@ -416,15 +512,21 @@ class Demo extends Component    {
                                             onClick={this.handleClick}
                                             className="btn-danger"
                                             name="decPriority"
-                                            value="high">
+                                            value="high"
+                                            onBlur={this.handleBlur("decPriority")}
+                                            invalid={errors.decPriority}>
                                             High
                                             </Button>
                                         </ButtonGroup>
+                                        <FormFeedback>{errors.decPriority}</FormFeedback>
                                     </Col>
                                 </FormGroup>
+                                {this.state.decTitle.length >= 10 && this.state.decProblem.length >10 && this.state.decSolution.length >= 10 && this.state.decPriority !== "" ? 
                                 <Button onClick={() => {
                                     this.toggleModal();
-                                    }} type="submit" className="btn-yellow text-black" value="submit">{this.state.editMode ? "Update" : "Submit"}</Button>
+                                    }} type="submit" className="btn-yellow text-black" value="submit">{this.state.editMode ? "Update" : "Submit"}
+                                </Button> :
+                                <Button disabled>Submit</Button>}
                             </Form>
                         </ModalBody>
                     </Modal>
@@ -435,37 +537,38 @@ class Demo extends Component    {
                             <ModalHeader className="btn-yellow border-bottom-0" toggle={this.toggleEvaModal}>Evaluate Decision</ModalHeader>
                             <ModalBody className="modalBodyColor">
                                 <Form onSubmit={this.handleEvaluateSubmit}>
+                                    <Progress animated color="success" value={this.state.progressBarValue}>{this.state.progressBarValue}%</Progress>
                                     <FormGroup row>
                                         <Label className="text-white" md={7} htmlFor="decSatisfied" check>Are you satisfied with your decision?</Label>
                                         <Col className="align-self-center" md={2}>
-                                            <Input className="mr-0" onClick={this.setDecSat} value="yes" name="decSatisfied" type="radio" /><span className="text-white">Yes</span>
+                                            <Input className="mr-0" onClick={(e) => {this.setDecSat(e); this.setProgress()}} value="yes" name="decSatisfied" type="radio" /><span className="text-white">Yes</span>
                                         </Col>
                                         <Col className="align-self-center" md={2}>
-                                            <Input onClick={this.setDecSat} value="no" name="decSatisfied" type="radio" /><span className="text-white">No</span>
+                                            <Input onClick={(e) => {this.setDecSat(e); this.setProgress()}} value="no" name="decSatisfied" type="radio" /><span className="text-white">No</span>
                                         </Col>
                                     </FormGroup>
                                     { this.state.decSatisfied === "yes" || this.state.decSatisfied === "no" ? <FormGroup row>
                                         <Label className="text-white" md={7} htmlFor="yesSatisfied">Were you able to solve your problem with this decision?</Label>
                                         <Col className="align-self-center" md={2}>
-                                            <Input className="mr-0" onClick={this.setDecSat} value="yes" name="decSolved" type="radio" /><span className="text-white">Yes</span>
+                                            <Input className="mr-0" onClick={(e) => {this.setDecSat(e); this.setProgress()}} value="yes" name="decSolved" type="radio" /><span className="text-white">Yes</span>
                                         </Col>
                                         <Col className="align-self-center" md={2}>
-                                            <Input onClick={this.setDecSat} value="no" name="decSolved" type="radio" /><span className="text-white">No</span>
+                                            <Input onClick={(e) => {this.setDecSat(e); this.setProgress()}} value="no" name="decSolved" type="radio" /><span className="text-white">No</span>
                                         </Col>
                                     </FormGroup> : <div /> }
                                     { this.state.decSolved === "yes" || this.state.decSolved === "no"  ? <FormGroup row>
                                         <Label className="text-white" md={7} htmlFor="decDiff">Is there anything you would have done differently?</Label>
                                         <Col className="align-self-center" md={2}>
-                                            <Input className="mr-0" onClick={this.setDecSat} value="yes" name="decDiff" type="radio" /><span className="text-white">Yes</span>
+                                            <Input className="mr-0" onClick={(e) => {this.setDecSat(e); this.setProgress()}} value="yes" name="decDiff" type="radio" /><span className="text-white">Yes</span>
                                         </Col>
                                         <Col className="align-self-center" md={2}>
-                                            <Input onClick={this.setDecSat} value="no" name="decDiff" type="radio" /><span className="text-white">No</span>
+                                            <Input onClick={(e) => {this.setDecSat(e); this.setProgress()}} value="no" name="decDiff" type="radio" /><span className="text-white">No</span>
                                         </Col>
                                     </FormGroup> : <div /> }
                                     { this.state.decDiff === "yes" || this.state.decDiff === "no" ? <FormGroup row>
                                         <Label className="text-white" md={7} htmlFor="decDiffExplain">Please explain</Label>
                                         <Col className="pl-0">
-                                            <Input value={this.state.decDiffExplain} onChange={this.handleChange} className="form-control-custom" type="textarea" name="decDiffExplain" placeholder="Provide a detailed explanation"/>
+                                            <Input value={this.state.decDiffExplain} onChange={(e) => {this.handleChange(e); this.setProgress()}} className="form-control-custom" type="textarea" name="decDiffExplain" placeholder="Provide a detailed explanation"/>
                                         </Col>
                                     </FormGroup> : <div /> }
                                     { this.state.decDiff === "yes" || this.state.decDiff === "no" ? <FormGroup row>
@@ -473,7 +576,7 @@ class Demo extends Component    {
                                         <Col className="pl-0">
                                         <ReactStars
                                             count={5}
-                                            onChange={this.ratingChanged}
+                                            onChange={(newRating) => {this.ratingChanged(newRating); this.setProgress()}}
                                             size={30}
                                             activeColor="#ffd700"
                                         />
@@ -493,7 +596,7 @@ class Demo extends Component    {
                         { this.state.isArchiveOn ? 
                         <div>
                         <div className="row">
-                        <div className="col mt-3"><Button onClick={this.handleDecClick} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Decisions</Button></div>
+                        <div className="col mt-3"><Button onClick={this.handleDecClick} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Current Decisions</Button></div>
                         <div className="col mt-3"><Button onClick={this.handleArcClick} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Archived Decisions</Button></div>
                         <div className="col mt-3"><Button onClick={this.setEvaDecTrue} className="addDecButton btn navButtons-box col-md-12 fontBold text-black">Evaluate My Decision Making</Button></div>
                         </div>
@@ -511,7 +614,7 @@ class Demo extends Component    {
                         </div> : 
                         <div />}
                     </div>
-                </div>
+                </motion.div>
         );
     }
 }
