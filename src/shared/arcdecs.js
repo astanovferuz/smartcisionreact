@@ -6,7 +6,7 @@ export const ARCDECS = [
     decPriority: "low",
     decSolution: "I decided to rent a car, because I think it more convenient. Besides, I am too lazy to ride a bike.",
     decSatisfied: "no",
-    decSolved: "no",
+    decSolved: "no",    
     decDiff: "yes",
     decDiffExplain: "I would't have rented a car. I got a lot off traffic fines cuz I didn't know the area well and drove erratically trying to figure out where to turn. Spent a lot of money on both the car and fines. Never doing that again.",
     rating: 1
