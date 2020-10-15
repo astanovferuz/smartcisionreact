@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.90af9f16.chunk.css",
-    "main.js": "/static/js/main.f50fcc8c.chunk.js",
-    "main.js.map": "/static/js/main.f50fcc8c.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.a97a7f5d.js",
-    "runtime-main.js.map": "/static/js/runtime-main.a97a7f5d.js.map",
-    "static/css/2.3f261446.chunk.css": "/static/css/2.3f261446.chunk.css",
-    "static/js/2.c6cac0fb.chunk.js": "/static/js/2.c6cac0fb.chunk.js",
-    "static/js/2.c6cac0fb.chunk.js.map": "/static/js/2.c6cac0fb.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.4a717cc502c171d166e2c8c90516f5eb.js": "/precache-manifest.4a717cc502c171d166e2c8c90516f5eb.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.3f261446.chunk.css.map": "/static/css/2.3f261446.chunk.css.map",
-    "static/css/main.90af9f16.chunk.css.map": "/static/css/main.90af9f16.chunk.css.map",
-    "static/js/2.c6cac0fb.chunk.js.LICENSE.txt": "/static/js/2.c6cac0fb.chunk.js.LICENSE.txt",
-    "static/media/font-awesome.css": "/static/media/fontawesome-webfont.fee66e71.woff"
+    "main.css": "/smartcisionreact/static/css/main.90af9f16.chunk.css",
+    "main.js": "/smartcisionreact/static/js/main.96f8b0ae.chunk.js",
+    "main.js.map": "/smartcisionreact/static/js/main.96f8b0ae.chunk.js.map",
+    "runtime-main.js": "/smartcisionreact/static/js/runtime-main.360087ef.js",
+    "runtime-main.js.map": "/smartcisionreact/static/js/runtime-main.360087ef.js.map",
+    "static/css/2.89aa9a5d.chunk.css": "/smartcisionreact/static/css/2.89aa9a5d.chunk.css",
+    "static/js/2.c6cac0fb.chunk.js": "/smartcisionreact/static/js/2.c6cac0fb.chunk.js",
+    "static/js/2.c6cac0fb.chunk.js.map": "/smartcisionreact/static/js/2.c6cac0fb.chunk.js.map",
+    "index.html": "/smartcisionreact/index.html",
+    "precache-manifest.4894f0a8006e3d309e0892188c1901a7.js": "/smartcisionreact/precache-manifest.4894f0a8006e3d309e0892188c1901a7.js",
+    "service-worker.js": "/smartcisionreact/service-worker.js",
+    "static/css/2.89aa9a5d.chunk.css.map": "/smartcisionreact/static/css/2.89aa9a5d.chunk.css.map",
+    "static/css/main.90af9f16.chunk.css.map": "/smartcisionreact/static/css/main.90af9f16.chunk.css.map",
+    "static/js/2.c6cac0fb.chunk.js.LICENSE.txt": "/smartcisionreact/static/js/2.c6cac0fb.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.css": "/smartcisionreact/static/media/fontawesome-webfont.fee66e71.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.a97a7f5d.js",
-    "static/css/2.3f261446.chunk.css",
+    "static/js/runtime-main.360087ef.js",
+    "static/css/2.89aa9a5d.chunk.css",
     "static/js/2.c6cac0fb.chunk.js",
     "static/css/main.90af9f16.chunk.css",
-    "static/js/main.f50fcc8c.chunk.js"
+    "static/js/main.96f8b0ae.chunk.js"
   ]
 }
