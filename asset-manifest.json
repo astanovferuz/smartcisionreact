@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/smartcisionappreact/static/css/main.90af9f16.chunk.css",
-    "main.js": "/smartcisionappreact/static/js/main.a561504b.chunk.js",
-    "main.js.map": "/smartcisionappreact/static/js/main.a561504b.chunk.js.map",
-    "runtime-main.js": "/smartcisionappreact/static/js/runtime-main.ea2f3693.js",
-    "runtime-main.js.map": "/smartcisionappreact/static/js/runtime-main.ea2f3693.js.map",
-    "static/css/2.f5ae846d.chunk.css": "/smartcisionappreact/static/css/2.f5ae846d.chunk.css",
-    "static/js/2.c6cac0fb.chunk.js": "/smartcisionappreact/static/js/2.c6cac0fb.chunk.js",
-    "static/js/2.c6cac0fb.chunk.js.map": "/smartcisionappreact/static/js/2.c6cac0fb.chunk.js.map",
-    "index.html": "/smartcisionappreact/index.html",
-    "precache-manifest.5ae9c362b0a5734b7dac649f531980d9.js": "/smartcisionappreact/precache-manifest.5ae9c362b0a5734b7dac649f531980d9.js",
-    "service-worker.js": "/smartcisionappreact/service-worker.js",
-    "static/css/2.f5ae846d.chunk.css.map": "/smartcisionappreact/static/css/2.f5ae846d.chunk.css.map",
-    "static/css/main.90af9f16.chunk.css.map": "/smartcisionappreact/static/css/main.90af9f16.chunk.css.map",
-    "static/js/2.c6cac0fb.chunk.js.LICENSE.txt": "/smartcisionappreact/static/js/2.c6cac0fb.chunk.js.LICENSE.txt",
-    "static/media/font-awesome.css": "/smartcisionappreact/static/media/fontawesome-webfont.fee66e71.woff"
+    "main.css": "/static/css/main.90af9f16.chunk.css",
+    "main.js": "/static/js/main.f50fcc8c.chunk.js",
+    "main.js.map": "/static/js/main.f50fcc8c.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.a97a7f5d.js",
+    "runtime-main.js.map": "/static/js/runtime-main.a97a7f5d.js.map",
+    "static/css/2.3f261446.chunk.css": "/static/css/2.3f261446.chunk.css",
+    "static/js/2.c6cac0fb.chunk.js": "/static/js/2.c6cac0fb.chunk.js",
+    "static/js/2.c6cac0fb.chunk.js.map": "/static/js/2.c6cac0fb.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.4a717cc502c171d166e2c8c90516f5eb.js": "/precache-manifest.4a717cc502c171d166e2c8c90516f5eb.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.3f261446.chunk.css.map": "/static/css/2.3f261446.chunk.css.map",
+    "static/css/main.90af9f16.chunk.css.map": "/static/css/main.90af9f16.chunk.css.map",
+    "static/js/2.c6cac0fb.chunk.js.LICENSE.txt": "/static/js/2.c6cac0fb.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.css": "/static/media/fontawesome-webfont.fee66e71.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.ea2f3693.js",
-    "static/css/2.f5ae846d.chunk.css",
+    "static/js/runtime-main.a97a7f5d.js",
+    "static/css/2.3f261446.chunk.css",
     "static/js/2.c6cac0fb.chunk.js",
     "static/css/main.90af9f16.chunk.css",
-    "static/js/main.a561504b.chunk.js"
+    "static/js/main.f50fcc8c.chunk.js"
   ]
 }
