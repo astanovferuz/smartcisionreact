@@ -7,9 +7,9 @@ import './App.css';
 class App extends Component{
 render()  {
   return(
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter>
       <div>
-        <Main basename={process.env.PUBLIC_URL} />
+        <Main />
       </div>
     </BrowserRouter>
   );
