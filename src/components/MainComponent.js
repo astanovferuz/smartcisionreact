@@ -8,10 +8,10 @@ import Demo from "../coreapplogic/DemoPageComponent";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
-function Main(){
+function Main(props){
         return(
             <div>
-                <Header />
+                <Header baseName={props.baseName} />
                 <AnimatePresence exitBeforeEnter>
                     <Switch>
                     <Route path="/home" component={Home} />
