@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/smartcisionreact/static/css/main.3ce79afb.chunk.css",
-    "main.js": "/smartcisionreact/static/js/main.20fe515f.chunk.js",
-    "main.js.map": "/smartcisionreact/static/js/main.20fe515f.chunk.js.map",
+    "main.js": "/smartcisionreact/static/js/main.f8453850.chunk.js",
+    "main.js.map": "/smartcisionreact/static/js/main.f8453850.chunk.js.map",
     "runtime-main.js": "/smartcisionreact/static/js/runtime-main.360087ef.js",
     "runtime-main.js.map": "/smartcisionreact/static/js/runtime-main.360087ef.js.map",
     "static/css/2.89aa9a5d.chunk.css": "/smartcisionreact/static/css/2.89aa9a5d.chunk.css",
     "static/js/2.2c89b937.chunk.js": "/smartcisionreact/static/js/2.2c89b937.chunk.js",
     "static/js/2.2c89b937.chunk.js.map": "/smartcisionreact/static/js/2.2c89b937.chunk.js.map",
     "index.html": "/smartcisionreact/index.html",
-    "precache-manifest.63cd4ccb69010ad547a49a48745b0ee6.js": "/smartcisionreact/precache-manifest.63cd4ccb69010ad547a49a48745b0ee6.js",
+    "precache-manifest.64ed2a8a68284cf171c5f6dff62c7220.js": "/smartcisionreact/precache-manifest.64ed2a8a68284cf171c5f6dff62c7220.js",
     "service-worker.js": "/smartcisionreact/service-worker.js",
     "static/css/2.89aa9a5d.chunk.css.map": "/smartcisionreact/static/css/2.89aa9a5d.chunk.css.map",
     "static/css/main.3ce79afb.chunk.css.map": "/smartcisionreact/static/css/main.3ce79afb.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.89aa9a5d.chunk.css",
     "static/js/2.2c89b937.chunk.js",
     "static/css/main.3ce79afb.chunk.css",
-    "static/js/main.20fe515f.chunk.js"
+    "static/js/main.f8453850.chunk.js"
   ]
 }
