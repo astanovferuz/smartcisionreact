@@ -1,0 +1,195 @@
+.stripe-z  {
+  background: repeating-linear-gradient(
+  -55deg,
+  #222,
+  #222 10px,
+  #3e4551 10px,
+  #3e4551 20px
+);
+}
+
+.addDecButton {
+  height: 60px;
+  margin-bottom: 8px;
+}
+
+.addDecButton-btn-scale     {
+  transition: transform 0.2s;
+}
+
+.addDecButton-btn-scale:hover   {
+  transform: scale(1.05);
+  background-color: #FFED38;
+}
+
+.mar-y  {
+  margin: 20px 0 10px 0;
+}
+
+.gray-box {
+  background-image: linear-gradient(150deg, #3e4551 -30%, #ebfffe 60%, #3e4551);
+  border-radius: 1vh;
+  height: 60px;
+  color: black!important;
+}
+
+.decisionCol  {
+  padding: 0 80px;
+}
+
+.decBodyBack  {
+  background-color: #30383A;
+}
+
+.someBorder {
+  border: 1px solid black;
+}
+
+.text-black {
+  color: black;
+  font-weight: 500;
+}
+
+.scrollbar
+{
+	margin-left: 30px;
+	float: left;
+	height: 343px;
+	width: 100%;
+	background: transparent;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+
+.scrollbar-arc
+{
+	margin-left: 30px;
+	float: left;
+	height: 441px;
+	width: 100%;
+	background: transparent;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+.force-overflow
+{
+	min-height: auto;
+}
+
+#style-2::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #FFED38;
+}
+
+#style-2::-webkit-scrollbar
+{
+	width: 12px;
+  background-color: #F5F5F5;
+  border-radius: 1vh;
+}
+
+#style-2::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: gray;
+}
+
+.roundCorners {
+  border-radius: 1vh;
+}
+
+.decisionName {
+  cursor: pointer;
+}
+
+.decisionName:hover {
+  background-color: #FCD116;
+}
+
+.modalBodyColor {
+  background-color: #3e4551
+}
+
+.form-control-custom {
+  background-color: #3e4551;
+  color: white;
+  font-weight: 400;
+}
+
+.form-control-custom:focus{
+  background-color: #3e4551;
+  color: white;
+  font-weight: 400;
+  border-color: turquoise;
+  box-shadow: 0 0 0 0.07rem;
+}
+
+.form-control-custom::placeholder  {
+  color: white;
+  opacity: 0.6;
+  font-weight: 300;
+}
+
+.colCardPriority  {
+  font-size: 15px;
+}
+
+.exDecisionBack {
+  border-radius: 1vh;
+  background-color: #30383A;
+}
+
+.fontSmall  {
+  font-size: 0.9rem;
+}
+
+.borderYellow {
+  border: 3px solid #FFED38;
+}
+
+.backWhite  {
+  background-color: white;
+}
+
+.primButton:hover  {
+  background-color: #0275d8;
+}
+
+.danButton:hover  {
+  background-color: #d9534f;
+}
+
+.warnButton:hover {
+  background-color: #f0ad4e;
+}
+
+.expandCardTitle  {
+  font-size: 20px;
+}
+
+.sm-badge {
+  font-size: 12px;
+}
+
+.text-aqua {
+  color: #00ffff;
+}
+
+.botMar {
+  margin-bottom: 200px!important;
+}
+
+.btn-aquamarine {
+  background-color: aqua;
+}
+
+.navButtons-box {
+  background-image: linear-gradient(150deg, #3e4551 -30%, #ebfffe 60%, #3e4551);
+  border-radius: 1vh;
+  height: 60px;
+}
